@@ -17,7 +17,10 @@ window.renderStatistics = function (ctx, names, times) {
   var textLine1 = 'Ура, вы победили!';
   var textLine2 = 'Список результатов:';
 
-  // shadow
+  var columnsMarginStep = histogramWidth + histogramMargin;
+  var columnsBottomPosition = columnsTopMargin + histogramHeight;
+
+	// shadow
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
   ctx.fillRect(leftMargin + 10, topMargin + 10, 420, 270);
 
@@ -35,11 +38,15 @@ window.renderStatistics = function (ctx, names, times) {
   // result columns
   for (var i = 0; i < times.length; i++) {
     var randomColor = 'rgba(0, 0, 255,' + (Math.random() * 0.3 + 0.3) + ')';
+    var columnLeftIndent = leftPad + columnsMarginStep * i;
+    var columnResultHeight = times[i] * step;
+    var columnTopPosition = columnsBottomPosition - columnResultHeight;
 
     // Colors Column Assignment
     ctx.fillStyle = names[i] !== 'Вы' ? randomColor : myColor;
-    ctx.fillRect((leftPad + histogramWidth * i + histogramMargin * i), (columnsTopMargin + histogramHeight - times[i] * step), histogramWidth, times[i] * step); // columns
-    ctx.fillText(Math.round(times[i]), (leftPad + histogramWidth * i + histogramMargin * i), (columnsTopMargin - 17 + histogramHeight - times[i] * step)); // points
-    ctx.fillText(names[i], (leftPad + histogramWidth * i + histogramMargin * i), columnsTopMargin + histogramHeight + 10); // names
+
+    ctx.fillRect(columnLeftIndent, columnTopPosition, histogramWidth, columnResultHeight); // columns
+    ctx.fillText(Math.round(times[i]), columnLeftIndent, columnTopPosition - 17); // points
+    ctx.fillText(names[i], columnLeftIndent, columnsBottomPosition + 10); // names
   }
 };
