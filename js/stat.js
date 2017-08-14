@@ -20,7 +20,7 @@ window.renderStatistics = function (ctx, names, times) {
   var columnsMarginStep = histogramWidth + histogramMargin;
   var columnsBottomPosition = columnsTopMargin + histogramHeight;
 
-	// shadow
+  // shadow
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
   ctx.fillRect(leftMargin + 10, topMargin + 10, 420, 270);
 
